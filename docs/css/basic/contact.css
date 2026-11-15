@@ -1,0 +1,121 @@
+/*
+    Created on : February 2016
+    Author     : RICHE Vincent
+*/
+
+@import url("commons.css");
+
+/* Zone principale sous le header fixe : contenu aligné en haut (flex-start), centré en largeur. */
+body[data-nav="contact"] {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: var(--main-background-color);
+    background-image: var(--page-skin-bg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+body[data-nav="contact"] #content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    /* Offset sous le header (en plus du margin-top JS) ; bas : marge footer */
+    padding:
+        var(--shell-pad-top)
+        var(--shell-pad-right)
+        var(--shell-pad-bottom)
+        var(--shell-pad-left);
+    font-size: initial;
+    transition: margin 1s ease;
+    box-sizing: border-box;
+    min-height: 0;
+}
+
+body[data-nav="contact"] .contact-panel {
+    width: 100%;
+    max-width: var(--contact-panel-max);
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+.contact-eyebrow {
+    margin: 0 0 clamp(1rem, 2.5vw, 1.35rem);
+    color: var(--main1-color);
+    font-size: clamp(1.05rem, 2.65vw, 1.55rem);
+    font-family: "Stylized Text";
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.contact-card {
+    margin: 0;
+    padding: clamp(1.35rem, 3.2vw, 2.15rem) clamp(1.25rem, 3vw, 2rem);
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    border: var(--ui-border-card);
+    border-radius: var(--ui-radius-md);
+    box-shadow: var(--ui-card-shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body[data-nav="contact"] {
+        background-attachment: scroll;
+    }
+}
+
+#content .contact-card p {
+    margin: 0;
+    color: var(--main-text-color);
+    text-align: center;
+    font-size: clamp(1rem, 1.35vw, 1.12rem);
+    line-height: 1.65;
+    font-family: "Normal Text";
+}
+
+#content .contact-card p.contact-spaced {
+    margin-top: clamp(1rem, 2.5vw, 1.5rem);
+    padding-top: clamp(1rem, 2.5vw, 1.35rem);
+    border-top: 1px solid var(--ui-rule-soft);
+}
+
+#content .contact-card p a {
+    color: var(--main-hypertext-color);
+    text-decoration: none;
+    font-family: "Normal Text";
+    font-weight: 600;
+    border-bottom: 1px solid var(--ui-link-border);
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+#content .contact-card p a:hover {
+    color: var(--main1-color);
+    border-bottom-color: var(--ui-link-border-hover);
+}
+
+#alertMailSent {
+    position: absolute;
+    top: -20%;
+    left: 0;
+    width: 30%;
+    margin: 0 35%;
+    padding: 1%;
+    text-align: center;
+    font-size: 1.6vw;
+    font-family: "Stylized Text";
+    color: var(--main-background-color);
+
+    z-index: 9999;
+    transition: top 1s ease 0s;
+}

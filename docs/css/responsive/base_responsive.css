@@ -1,0 +1,127 @@
+/*
+    Created on : 28 juil. 2016, 22:42:41
+    Author     : Richounet
+*/
+
+@import url("../basic/commons.css");
+
+@media (min-width: 320px) and (max-width: 1024px) {
+
+    /* Header  Part */
+    #menu::after {
+        height: 1px;
+    }
+
+    #menu {
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        box-shadow: 0 2px 8px rgba(41, 50, 65, 0.12);
+    }
+
+    #menu nav {
+        width: 100%;
+        margin: 0;
+        padding: 0.2rem 0.35rem 0.35rem 0.35rem;
+        display: block;
+    }
+
+    #menu nav #about {
+        display: none;
+    }
+
+    #menu nav div {
+        width: 100%;
+    }
+
+    #menu nav div > ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        row-gap: 0.18rem;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #menu nav div > ul li {
+        margin: 0;
+        width: 33.333%;
+        text-align: center;
+    }
+
+    #menu nav div > ul li:nth-child(n+4) {
+        width: 50%;
+    }
+
+    #menu nav div > ul li a {
+        min-width: 5.2rem;
+        font-size: 0.84rem;
+        line-height: 1.25;
+        padding: 0.25rem 0.3rem;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #menu nav div > ul li a:focus-visible {
+        outline: 2px solid var(--main1-color);
+        outline-offset: 2px;
+    }
+
+    /* Body Part */
+    #page,
+    .timeline {
+        margin: 0 0 1% 0;
+        width: 100%;
+    }
+
+    #page:not(.detail-page) #content {
+        width: 95%;
+        margin: 0 2.5%;
+        font-size: 0;
+    }
+
+    /* Footer  Part */
+    #footer {
+        border-top: 1px solid var(--main2-color);
+    }
+
+    #footer #message {
+        display: none;
+    }
+
+    #footer nav {
+        margin: 2% 10%;
+        width: 80%;
+        font-size: 0;
+    }
+
+    #footer ul {
+        margin: 5% 0;
+    }
+
+    #footer li {
+        margin: 0 8% 0 8%;
+        width: 8%;
+    }
+
+    #footer li:nth-child(1) {
+        margin: 0 10% 0 8%;
+    }
+
+    #footer #copyright,
+    #footer #copyright a {
+        font-size: clamp(0.8rem, 3.2vw, 1rem);
+    }
+    #menu nav ul #about:before {
+        display: none !important;
+        transition-property: none !important;
+    }
+
+    #menu nav ul #about:after {
+        display: none !important;
+        transition-property: none !important;
+    }
+}

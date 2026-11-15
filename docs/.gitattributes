@@ -1,0 +1,5 @@
+# Fin de ligne LF pour les sources texte (évite les mélanges CRLF selon l’OS)
+* text=auto
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf

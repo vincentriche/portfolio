@@ -1,0 +1,246 @@
+/*
+ * Pages détail (#page.detail-page) : titre / date hors carte, corps dans .detail-page-card.
+ * Aligné avec les tokens --detail-* dans commons.css.
+ */
+
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: var(--main-background-color);
+    background-image: var(--page-skin-bg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/*
+ * Même décalage que contact : margin-top sur #page = hauteur du menu (JS) ;
+ * padding latéral/bas calé sur le shell contact.
+ */
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--detail-column-max);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding:
+        clamp(0.85rem, 2.6vw, 1.5rem) var(--shell-pad-right) var(--shell-pad-bottom-detail) var(--shell-pad-left);
+    background: none;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    font-size: initial;
+}
+
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page .detail-page-card {
+    padding: var(--detail-card-pad-y) var(--detail-card-pad-x);
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    border: var(--ui-border-card);
+    border-radius: var(--ui-radius-md);
+    box-shadow: var(--ui-card-shadow);
+}
+
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page .detail-page-card #content {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+}
+
+/* Titres hors carte : même ton que .contact-eyebrow (contact.css). */
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page>#title,
+body[data-nav="posts"]:has(#page) #page>#title_post,
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page>span.detail-eyebrow {
+    display: block;
+    margin: 0 0 clamp(1rem, 2.5vw, 1.35rem);
+    padding: 0;
+    color: var(--main1-color);
+    font-size: clamp(1.05rem, 2.65vw, 1.55rem);
+    font-family: "Stylized Text";
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.3;
+}
+
+/* Blog : date au-dessus du titre ; bloc date+titre plus compact, marge confortable avant la carte */
+body[data-nav="posts"]:has(#page) #page>#date_post {
+    display: table;
+    margin: 0 auto clamp(0.35rem, 1.15vw, 0.55rem);
+    padding: 0;
+    width: auto;
+    color: var(--main2-color);
+    font-family: "Stylized Text";
+    font-size: clamp(0.82rem, 2vw, 0.95rem);
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    line-height: 1.35;
+}
+
+body[data-nav="posts"]:has(#page) #page>#title_post {
+    margin: 0 auto clamp(0.9rem, 2.35vw, 1.2rem);
+    line-height: 1.28;
+}
+
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #content p {
+    margin: 0 0 var(--detail-p-gap);
+    padding: 0;
+    color: var(--main-text-color);
+    font-size: clamp(1rem, 1.35vw, 1.12rem);
+    line-height: 1.65;
+    font-family: "Normal Text", system-ui, sans-serif;
+}
+
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #content p:last-child {
+    margin-bottom: 0;
+}
+
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #content ul li {
+    margin: var(--detail-li-gap) 0 0 var(--detail-li-indent);
+    padding: 0;
+    color: var(--main-text-color);
+    font-size: clamp(1rem, 1.35vw, 1.12rem);
+    line-height: 1.65;
+    font-family: "Normal Text", system-ui, sans-serif;
+}
+
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #content ul li:first-child {
+    margin-top: 0;
+}
+
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #content a.link,
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #content p a[href],
+body[data-nav="posts"]:has(#page) #page #content li a[href] {
+    color: var(--main-hypertext-color);
+    text-decoration: none;
+    font-family: "Normal Text", system-ui, sans-serif;
+    font-weight: 600;
+    border-bottom: 1px solid var(--ui-link-border);
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #content a.link:hover,
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #content p a[href]:hover,
+body[data-nav="posts"]:has(#page) #page #content li a[href]:hover {
+    color: var(--main1-color);
+    border-bottom-color: var(--ui-link-border-hover);
+}
+
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #content p.italic-note {
+    margin-top: clamp(0.85rem, 2vw, 1.15rem);
+    padding-top: clamp(0.75rem, 1.85vw, 1.05rem);
+    border-top: 1px solid var(--ui-rule-soft);
+    font-style: italic;
+    text-align: center;
+    color: var(--main2-color);
+    font-size: clamp(0.92rem, 1.2vw, 1.02rem);
+}
+
+body[data-nav="posts"]:has(#page) #page #content h3.title2,
+body[data-nav="posts"]:has(#page) #page #content .title2 {
+    display: block;
+    margin: clamp(1.5rem, 3vw, 2rem) 0 clamp(0.5rem, 1.5vw, 0.85rem);
+    padding: 0 0 clamp(0.35rem, 1vw, 0.5rem);
+    color: var(--main2-color);
+    font-family: "Stylized Text", cursive, system-ui;
+    font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: left;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(41, 50, 65, 0.1);
+    line-height: 1.35;
+}
+
+body[data-nav="posts"]:has(#page) #page #content h3.title3 {
+    display: block;
+    margin: clamp(1rem, 2vw, 1.35rem) 0 0.5rem;
+    padding: 0;
+    color: var(--main2-color);
+    font-family: "Stylized Text", cursive, system-ui;
+    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-align: left;
+    text-decoration: none;
+    line-height: 1.4;
+}
+
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page .detail-page-card #description {
+    margin: clamp(1rem, 2.5vw, 1.5rem) auto clamp(0.5rem, 2vw, 1rem);
+    width: 100%;
+    max-width: 48rem;
+    color: var(--main2-color);
+    text-align: center;
+    font-style: italic;
+    font-size: clamp(0.88rem, 1.25vw, 0.98rem);
+    line-height: 1.55;
+    font-family: "Normal Text", system-ui, sans-serif;
+}
+
+/* Galeries (#pictures) — même décalage que #imageHeader / iframe : pleine largeur du corps carte, espacement --detail-p-gap */
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #pictures {
+    margin: var(--detail-p-gap) 0 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Grande image (pleine largeur, comme l’entête) */
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #pictures > img {
+    display: block;
+    box-sizing: border-box;
+    margin: 0 0 var(--detail-p-gap);
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border: var(--ui-border-muted);
+    border-radius: var(--ui-radius-md);
+    box-shadow: var(--ui-img-elev);
+}
+
+/* Grille de vignettes : gouttières = même token que le reste du détail */
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #pictures > div {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--detail-p-gap);
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+:is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #pictures > div img {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+    border: var(--ui-border-muted);
+    border-radius: var(--ui-radius-md);
+    box-shadow: var(--ui-img-elev);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) {
+        background-attachment: scroll;
+    }
+
+    :is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #content a.link,
+    :is(body[data-nav="projects"], body[data-nav="experiences"], body[data-nav="posts"]):has(#page) #page #content p a[href],
+    body[data-nav="posts"]:has(#page) #page #content li a[href] {
+        transition: none;
+    }
+}

@@ -1,0 +1,107 @@
+/*
+    Created on : April 2016
+    Author     : RICHE Vincent
+*/
+
+@import url("commons.css");
+
+#page #content.cv-layout {
+    width: 84%;
+    margin: 0 auto;
+    padding-top: 1.4rem;
+    padding-bottom: var(--shell-pad-bottom-detail);
+    box-sizing: border-box;
+}
+
+.cv-layout .cv-hero {
+    margin-top: 0;
+    margin-bottom: 1.2%;
+}
+
+.cv-layout .cv-photo-wrap {
+    max-width: 19vw;
+}
+
+.cv-layout #photo {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    border: 2px solid var(--main2-color);
+    border-radius: 4px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    grid-template-areas:
+        "work projects"
+        "skills misc"
+        "education education";
+    gap: 0.9rem;
+    width: 100%;
+}
+
+.grid-item {
+    padding: 1rem 1rem 0.9rem 1rem;
+    border: 1px solid rgba(41, 50, 65, 0.16);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: var(--ui-card-shadow);
+}
+
+.grid-item h3 {
+    margin: 0 0 0.35rem 0;
+    color: var(--main1-color);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-family: "Stylized Text";
+}
+
+.grid-item ul {
+    margin: 0 0 0 1rem;
+    padding: 0;
+}
+
+.grid-item ul li {
+    margin: 0.35rem 0;
+    font-size: 0.98rem;
+    line-height: 1.4;
+    font-family: "Normal Text";
+}
+
+.grid-item ul li ul {
+    margin-top: 0.25rem;
+}
+
+.grid-item ul li ul li {
+    margin: 0.22rem 0;
+    font-size: 0.92rem;
+}
+
+.grid-item p {
+    margin: 0.18rem 0 0 0;
+    color: var(--main-text-color);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    font-family: "Normal Text";
+}
+
+#page #content.cv-layout a {
+    color: var(--main-hypertext-color);
+    text-decoration: none;
+}
+
+#page #content.cv-layout a:hover {
+    color: var(--main1-color);
+}
+
+.grid-item--width3 { grid-area: work; }
+.grid-item--width2 { grid-area: projects; }
+.grid-item--width4 { grid-area: skills; }
+.grid-item--width6 { grid-area: misc; }
+.grid-item--width5 { grid-area: education; }
+
+#footer {
+    position: initial;
+}

@@ -1,0 +1,258 @@
+/*
+    Responsive listes timeline — pair de timeline.css (posts / projects / experiences).
+    Created on : 28 juil. 2016 — Author : Richounet
+*/
+
+@import url("../basic/commons.css");
+
+@media (min-width: 320px) and (max-width: 1023px) {
+
+    .timeline {
+        padding: 0.5rem 0 1rem 0;
+    }
+
+    .timeline::after {
+        display: none;
+    }
+
+    .container {
+        width: 100%;
+        margin: 4.5% 0;
+        padding: 0;
+    }
+
+    .nodescription {
+        margin-bottom: 5%;
+    }
+
+    .left,
+    .right {
+        left: 0;
+        right: 0;
+    }
+
+    .container:after,
+    .left::before,
+    .right::before,
+    .right::after {
+        display: none;
+    }
+
+    .education {
+        width: 94%;
+        margin: 5% auto 2.5% auto;
+        border-bottom: 1px dotted var(--main2-color);
+    }
+
+    .education p {
+        width: 100%;
+        padding: 0;
+        font-size: clamp(0.82rem, 2.3vw, 0.96rem);
+        line-height: 1.35;
+        text-align: center;
+    }
+
+    .contentleft {
+        margin: 0;
+    }
+
+    .contentright {
+        margin: 0;
+    }
+
+    .content {
+        --timeline-mobile-image-size: clamp(4.4rem, 19vw, 5.3rem);
+        display: grid;
+        grid-template-columns: var(--timeline-mobile-image-size) minmax(0, 1fr);
+        grid-template-areas:
+            "image date"
+            "image block";
+        column-gap: 0.2rem;
+        row-gap: 0.2rem;
+        align-items: center;
+        width: 94%;
+        margin: 0 auto;
+        padding: 0.8rem 0.78rem;
+        border: 1px solid rgba(41, 50, 65, 0.18);
+        border-radius: var(--ui-radius-md);
+        background: #fff;
+        box-shadow: var(--ui-card-shadow-mobile);
+        transition:
+            border-color 0.15s ease,
+            box-shadow 0.15s ease;
+    }
+
+    .content.card-clickable:hover:not(:has(.date:hover)),
+    .content.card-clickable:focus-visible {
+        border-color: var(--main1-color);
+        box-shadow:
+            0 2px 6px rgba(41, 50, 65, 0.08),
+            0 8px 22px rgba(41, 50, 65, 0.1);
+    }
+
+    .content.card-clickable:hover:not(:has(.date:hover)) .image,
+    .content.card-clickable:focus-visible .image {
+        box-shadow:
+            0 2px 6px rgba(41, 50, 65, 0.08),
+            0 8px 22px rgba(41, 50, 65, 0.1);
+    }
+
+    .content.card-clickable.contentleft:hover:not(:has(.date:hover)) .block,
+    .content.card-clickable.contentleft:focus-visible .block {
+        transform: translateX(calc(-1 * var(--timeline-split-shift)));
+    }
+
+    .content.card-clickable.contentright:hover:not(:has(.date:hover)) .block,
+    .content.card-clickable.contentright:focus-visible .block {
+        transform: translateX(var(--timeline-split-shift));
+    }
+
+    .content.card-clickable:hover:not(:has(.date:hover)) .block > a:first-of-type,
+    .content.card-clickable:hover:not(:has(.date:hover)) .block .title,
+    .content.card-clickable:focus-visible .block > a:first-of-type,
+    .content.card-clickable:focus-visible .block .title {
+        color: var(--main1-color);
+    }
+
+    .content.card-clickable .date {
+        cursor: default;
+    }
+
+    .date {
+        grid-area: date;
+        position: relative;
+        display: block;
+        width: auto;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 0;
+        font-size: clamp(0.8rem, 2.5vw, 0.94rem);
+        line-height: 1.35;
+        white-space: normal;
+        text-align: left;
+        z-index: 1;
+    }
+
+    .dateleft {
+        left: auto;
+        right: auto;
+        transform: none;
+        text-align: left;
+    }
+
+    .dateright {
+        left: auto;
+        right: auto;
+        transform: none;
+        text-align: left;
+    }
+
+    .image {
+        grid-area: image;
+        display: flex;
+        position: relative;
+        left: auto;
+        top: auto;
+        width: var(--timeline-mobile-image-size);
+        height: auto;
+        aspect-ratio: 1 / 1;
+        align-self: center;
+        justify-self: start;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        border: none;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow:
+            0 0 0 1px rgba(41, 50, 65, 0.08),
+            0 2px 8px rgba(41, 50, 65, 0.07),
+            0 10px 28px rgba(41, 50, 65, 0.09);
+        transition: box-shadow 0.18s ease;
+    }
+
+    .contentleft .image {
+        left: auto;
+        top: auto;
+    }
+
+    .contentright .image {
+        left: auto;
+        top: auto;
+    }
+
+    .image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+        object-fit: cover;
+    }
+
+    .block {
+        grid-area: block;
+        width: 100%;
+        margin: 0 !important;
+        padding: 0;
+        transition: transform var(--timeline-split-duration) var(--timeline-split-ease);
+    }
+
+    .blockleft,
+    .blockright {
+        margin: 0 !important;
+    }
+
+    .blockleft:after {
+        display: none;
+    }
+
+    .blockright:after {
+        display: none;
+    }
+
+    .block .title,
+    .block > a:first-child {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 0.65rem 0.72rem 0.55rem 0.72rem;
+        font-size: clamp(0.9rem, 2.8vw, 1.03rem);
+        color: var(--main-hypertext-color);
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: "Stylized Text";
+        font-weight: bold;
+        background-color: transparent;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(41, 50, 65, 0.14);
+    }
+
+    .block a:hover {
+        color: var(--main1-color);
+    }
+
+    .block p,
+    .block .link {
+        position: relative;
+        width: auto;
+        margin: 0;
+        padding: 0.5rem 0.72rem 0.68rem 0.72rem;
+        font-size: clamp(0.84rem, 2.6vw, 0.96rem);
+        line-height: 1.45;
+    }
+
+    .block p {
+        margin: 0;
+    }
+
+    .blockleft a,
+    .blockright a,
+    .blockleft p,
+    .blockright p {
+        text-align: left !important;
+        -moz-text-align-last: left;
+        text-align-last: left;
+    }
+
+}

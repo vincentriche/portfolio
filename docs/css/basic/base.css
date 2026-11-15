@@ -1,0 +1,364 @@
+/*
+    Created on : February 2016
+    Author     : RICHE Vincent
+*/
+
+@import url("commons.css");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+#menu {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    transform-origin: top left;
+}
+
+#menu>*,
+#banner,
+#page,
+#content,
+.timeline,
+#footer {
+    opacity: 0;
+}
+
+.loaded #menu>*,
+.loaded #banner,
+.loaded #page,
+.loaded #content,
+.loaded .timeline,
+.loaded #footer {
+    animation: fadeIn 0.2s ease-in 0.2s forwards;
+}
+
+
+@keyframes fadeIn {
+    60% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Header  Part */
+#menu {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    background-color: white;
+    z-index: 2;
+}
+
+#menu::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--main2-color);
+    transform: scaleX(0);
+    opacity: 1;
+}
+
+#menu::after {
+    animation: scaleIn 1s ease-in 0.1s forwards;
+}
+
+@keyframes scaleIn {
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+#menu nav {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+#menu nav #about {
+    width: 5%;
+    margin: 0 0 0 0.5%;
+    padding: 0;
+    align-self: flex-end;
+}
+
+#menu nav #about li {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    aspect-ratio: 1 / 1;
+}
+
+#menu nav #about li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#menu nav #about li a #diamond {
+    position: absolute;
+    display: inline-block;
+    width: 52%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    z-index: 0;
+    pointer-events: none;
+
+    -webkit-transition: none;
+    transition: none;
+}
+
+#menu nav #about li a #diamond:before {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    border: 1.5px solid var(--main-text-color);
+    transform-origin: center center;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+
+    -webkit-transition: -webkit-transform 1s ease-in-out;
+    transition: transform 1s ease-in-out;
+}
+
+#menu nav #about li a:hover #diamond:before {
+    -webkit-transform: rotate(-405deg);
+    transform: rotate(-405deg);
+}
+
+#menu nav #about li a img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    flex-shrink: 0;
+    /* Carré du lien : ~72% remplit le losange (52% tourné ≈ 73% en envergure) */
+    width: 72%;
+    height: 72%;
+    object-fit: contain;
+    object-position: center;
+}
+
+#menu nav div {
+    display: flex;
+    width: 44%;
+    min-width: 0;
+
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+/* Header replié au scroll (desktop) — classe togglée par js/common_tools.js */
+#menu.menu--scroll-compact nav div {
+    width: 40%;
+}
+
+#menu.menu--scroll-compact nav div > ul {
+    padding-top: 6px;
+    padding-bottom: 8px;
+}
+
+#menu.menu--scroll-compact nav div > ul li a {
+    font-size: 1.1vw;
+}
+
+#menu.menu--scroll-compact nav #about li a img,
+#menu.menu--scroll-compact nav #about li a #diamond {
+    display: none;
+}
+
+/* Sans ça, aspect-ratio sur le li garde un carré vide : le bandeau ne rétrécit pas. */
+#menu.menu--scroll-compact nav #about {
+    width: 0;
+    max-width: 0;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    align-self: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#menu.menu--scroll-compact nav #about li {
+    width: 0;
+    min-width: 0;
+    aspect-ratio: unset;
+    height: 0;
+    min-height: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#menu.menu--scroll-compact nav #about li a {
+    height: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#menu nav div > ul {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    padding-right: 2%;
+    padding-bottom: 5px;
+    margin: 0;
+    align-items: flex-end;
+}
+
+#menu nav div > ul li {
+    display: inline-block;
+    margin: 0 2%;
+    width: auto;
+    vertical-align: middle;
+    color: var(--main-text-color);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0;
+    text-align: center;
+}
+
+#menu nav div > ul li a {
+    display: block;
+    width: 100%;
+    color: var(--main-text-color);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.12vw;
+    line-height: 1;
+    letter-spacing: 1px;
+    font-family: "Stylized Text";
+    cursor: pointer;
+}
+
+#menu nav div > ul li a:hover {
+    color: var(--main1-color);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--main1-color);
+    outline-offset: 2px;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.active {
+    color: var(--main-hypertext-color) !important;
+    font-weight: bold;
+}
+
+/* Body Part */
+#banner,
+#page,
+#content,
+.timeline {
+    margin: 0 0 1% 0;
+    width: 100%;
+
+    transition: margin 1s ease;
+}
+
+/* CV / anciennes pages : pas les pages détail (.detail-page → detail-shell.css) */
+#page:not(.detail-page) #content {
+    width: 60%;
+    margin: 0 20%;
+    font-size: 0;
+}
+
+/* Footer — aligné sur le shell des pages détail / contact (pads + safe area) */
+#footer {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    padding: clamp(0.65rem, 1.6vw, 1rem) var(--shell-pad-right) var(--shell-pad-bottom-detail)
+        var(--shell-pad-left);
+    box-sizing: border-box;
+}
+
+#footer #copyright,
+#footer #copyright a {
+    width: 100%;
+    color: var(--main-text-color);
+    text-align: center;
+    font-size: clamp(0.82rem, 1.25vw, 1rem);
+    font-family: "Stylized Text";
+}
+
+#footer #copyright a {
+    text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}

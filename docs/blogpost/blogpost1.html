@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--
+    Created on : April 2016
+    Author     : RICHE Vincent
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create NPC Variety with Blender and Unity | Vincent Riche</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Technical post explaining how to create large NPC variety in Blender and Unity using shape keys and asset randomization." />
+    <link rel="stylesheet" href="../css/basic/base.css">
+    <link rel="stylesheet" href="../css/responsive/base_responsive.css">
+    <link rel="stylesheet" href="../css/basic/detail-content.css">
+    <link rel="stylesheet" href="../css/responsive/detail_responsive.css">
+    <link rel="icon" type="image/webp" href="../images/others/favicon.webp" />
+    <script defer src="../js/layout.js"></script>
+    <script defer src="../js/common_tools.js"></script>
+</head>
+
+<body data-nav="posts">
+    <header id="menu"></header>
+
+    <h1 class="visually-hidden">Create Huge Variety of NPCs with Blender and Unity</h1>
+
+    <div id="page" class="detail-page">
+        <span id="date_post">May 23, 2019</span>
+        <span id="title_post" class="detail-eyebrow">Create huge variety of NPCs with Blender | UNITY</span>
+        <div class="detail-page-card">
+            <div id="content">
+                <img id="imageHeader" src="../images/blogpost/post1/screen1.webp" title="In-game Screenshot"
+                    alt="In-game Screenshot" />
+
+                <p>
+                    Recently, I worked with two of my friends on an isometric party game. Throughout different game modes,
+                    the main goal for players is to find a person in the middle of the crowd. <br>
+                    One of the main features is having a huge variety of NPCs which go about their businesses.
+
+                    <br><br>
+
+                    In this post, I will explain a simple method we use for making this possible.
+                </p>
+
+                <h3 class="title2">1 B<span class="smallCaps">lender</span></h3>
+                <h3 class="title3">1.1 Base models and animations</h3>
+
+                <p id="textLeft">
+                    I started to create two "naked" models with B<span class="smallCaps">lender</span>.
+                    I rigged these and created the animations we need for the game (walk, attack and throw a balloon).
+                    <br>
+                    As we decided to have non-realistic cubic characters, our animations were easy to make.
+                </p>
+                <img id="imageRight" src="../images/blogpost/post1/npc_base.gif" title="NPC Base Model"
+                    alt="NPC Base Model" />
+
+                <h3 class="title3">1.2 Shapes Keys</h3>
+
+                <img id="imageLeft" src="../images/blogpost/post1/shapekeys.webp" title="NPC with Shape Keys"
+                    alt="NPC with Shape Keys" />
+                <p id="textRight">
+                    To add some variety on our models I used a method called <i>mesh morphing</i>. <br>
+                    It is a transformation of a volume defined by the position of its vertices into another volume having
+                    the same number of vertices but arranged differently.
+                    It is just possible to deform a mesh but not to add details on it. <br>
+                    With B<span class="smallCaps">lender</span> it is done by adding some <i>Shape Keys</i> on the mesh. <br>
+                </p>
+
+                <p>
+                    In U<span class="smallCaps">NITY</span>, when we import a model with <i>Shape Keys</i> (called <i>Blend
+                        Shapes</i>), we can tweak them in the <i>Skinned Mesh Renderer</i>.
+                </p>
+
+                <img class="post-img" src="../images/blogpost/post1/blendshapes.webp" title="Blend Shapes Unity"
+                    alt="Blend Shapes Unity" />
+
+                <p class="post-section-spaced">
+                    Also, in script we can access to all <i>Blend Shapes</i> and set a value for each. This method allows us
+                    to have different morphologies on NPCs.
+                </p>
+
+                <h3 class="title3">1.3 Other assets</h3>
+
+                <p>
+                    I also created assets like hats, beards, hair, glasses, eyebrows, etc. to dress NPCs.<br>
+                </p>
+                <img class="post-img" src="../images/blogpost/post1/assets.webp" title="Assets" alt="Assets" />
+
+
+                <h3 class="title3">1.4 Texturing</h3>
+                <p>
+                    The advantage of making a low poly game is that we don't need realistic texturing. As we decided to have
+                    only colors, our textures are very simple.
+                    They are defined as 4x4 size texture where each pixel is a color of the mesh. An asset can have a
+                    maximum of 16 colors. <br>
+                    Some color textures for characters, cars or hot-dog stand:
+                </p>
+                <img class="post-img" src="../images/blogpost/post1/texturing.webp" title="Texturing"
+                    alt="Texturing" />
+
+                <h3 class="title2">2 U<span class="smallCaps">NITY</span></h3>
+                <p>
+                    In U<span class="smallCaps">nity</span>, the magic happens. <br>
+                    We spawn X male or female NPC model. For each model, we randomly choose a value for each Shape Key.
+                    Also, for each body part (skin, t-shirt, short, eyes, etc.)
+                    we pick a color from a list. After that we start to dress the model. <br>
+                    There are five types of elements: hats, hair, beards, glasses and eyebrows. For each type, we randomly
+                    pick an item in a list of assets associated to the type and a color.
+
+                    <br>
+
+                    The chosen assets are placed correctly on the NPC model in the editor, disabled and saved in the base
+                    model prefab in advance. When we choose an asset, we simply enable it.
+                    It's too tricky and restrictive to set position/rotation for each asset in script.
+
+                    <br>
+                    <br>
+
+                    This method is quite simple but allows having a big variety of NPCs. But the main problem is that we
+                    need a lot of assets if we want to avoid repetition.
+                    On the screen below we can see a redundancy on hats and glasses.
+                    <br> <br>
+                    Here some in-game screenshots and a showcase :
+                </p>
+            </div>
+            <div id="pictures"><img id="firstImg" src="../images/blogpost/post1/screen5.webp"
+                    title="Picture 5" alt="Picture 5" />
+                <div>
+                    <img src="../images/blogpost/post1/screen2.webp" title="Picture 2" alt="Picture 2" />
+                    <img src="../images/blogpost/post1/screen3.webp" title="Picture 3" alt="Picture 3" />
+                    <img src="../images/blogpost/post1/screen4.webp" title="Picture 4" alt="Picture 4" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer"></footer>
+</body>
+
+</html>

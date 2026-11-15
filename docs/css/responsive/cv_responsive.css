@@ -1,0 +1,94 @@
+/*
+    Created on : 28 juil. 2016, 22:42:41
+    Author     : Richounet
+*/
+
+@import url("../basic/commons.css");
+
+@media (min-width: 320px) and (max-width: 1024px) and (orientation: portrait) {
+    #page #content.cv-layout {
+        width: 95%;
+        margin: 0 auto;
+        padding-top: 0.9rem;
+    }
+
+    .cv-layout .cv-photo-wrap {
+        max-width: none;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "work"
+            "projects"
+            "skills"
+            "misc"
+            "education";
+        gap: 0.85rem;
+    }
+
+    .grid-item {
+        padding: 0.9rem 0.88rem 0.84rem 0.88rem;
+        box-shadow: var(--ui-card-shadow-mobile);
+    }
+
+    .grid-item h3 {
+        font-size: 0.95rem;
+    }
+
+    .grid-item ul li,
+    .grid-item ul li ul li {
+        font-size: 0.9rem;
+        line-height: 1.45;
+    }
+
+    .grid-item p {
+        font-size: 0.88rem;
+        line-height: 1.45;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 1024px) and (orientation: landscape) {
+    #page {
+        margin: 0 auto;
+        width: 90%;
+    }
+
+    #page #content.cv-layout {
+        width: 94%;
+        margin: 0 auto;
+    }
+
+    .cv-layout .cv-photo-wrap {
+        max-width: 23vw;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "work"
+            "projects"
+            "skills"
+            "misc"
+            "education";
+        gap: 0.65rem;
+    }
+
+    .grid-item {
+        padding: 0.8rem 0.82rem 0.76rem 0.82rem;
+        box-shadow: var(--ui-card-shadow-mobile);
+    }
+
+    .grid-item h3 {
+        font-size: 0.9rem;
+    }
+
+    .grid-item ul li,
+    .grid-item ul li ul li {
+        font-size: 0.84rem;
+    }
+
+    .grid-item p {
+        font-size: 0.82rem;
+    }
+}

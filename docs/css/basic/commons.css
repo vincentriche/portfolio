@@ -1,0 +1,70 @@
+@font-face {
+    font-family: "Stylized Text";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("https://fonts.gstatic.com/s/patrickhand/v25/LDI1apSQOAYtSuYWp8ZhfYe8XsLL.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Normal Text";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("https://fonts.gstatic.com/s/mate/v19/m8JdjftRd7WZ6zq2Ww.woff2") format("woff2");
+}
+
+:root {
+    color-scheme: light;
+
+    --main-background-color: #ffffff;
+    --main-text-color: #353535;
+    --main-hypertext-color: #26619c;
+    --main1-color: #f26e1d;
+    --main2-color: #293241;
+    --main3-color: #9498a0;
+    --success-color: #5cb85c;
+    --error-color: #d9534f;
+    --ui-border-thin: 1px solid var(--main2-color);
+    --ui-radius-sm: 4px;
+    --ui-radius-md: 6px;
+    /* Cartes timeline / CV / home : deux couches douces pour un léger relief */
+    --ui-card-shadow:
+        0 1px 3px rgba(41, 50, 65, 0.06),
+        0 6px 20px rgba(41, 50, 65, 0.078);
+    --ui-card-shadow-mobile:
+        0 1px 3px rgba(41, 50, 65, 0.075),
+        0 8px 26px rgba(41, 50, 65, 0.098);
+
+    /* Shell — padding identique contact (#content) & pages détail (#page) */
+    --shell-pad-top: clamp(1.25rem, 4vw, 2.5rem);
+    --shell-pad-bottom: calc(clamp(2.5rem, 8vh, 4.5rem) + env(safe-area-inset-bottom, 0px));
+    --shell-pad-bottom-detail: calc(clamp(0.9rem, 3vh, 1.8rem) + env(safe-area-inset-bottom, 0px));
+    --shell-pad-right: max(1rem, env(safe-area-inset-right));
+    --shell-pad-left: max(1rem, env(safe-area-inset-left));
+
+    --detail-column-max: min(60rem, 97vw);
+    --contact-panel-max: min(42rem, 92vw);
+
+    /* Pages détail (.detail-page-card) — rythme vertical texte */
+    --detail-card-pad-y: clamp(1rem, 2.45vw, 1.55rem);
+    --detail-card-pad-x: clamp(1rem, 2.35vw, 1.65rem);
+    --detail-p-gap: clamp(0.55rem, 1.15vw, 0.85rem);
+    /* Espacement entre colonnes texte + image (blog) — aligné sur le rythme de la carte */
+    --detail-media-col-gap: clamp(0.65rem, 1.85vw, 1.05rem);
+    --detail-li-gap: clamp(0.35rem, 0.85vw, 0.55rem);
+    --detail-li-indent: clamp(0.85rem, 2vw, 1.25rem);
+
+    --ui-border-muted: 1px solid rgba(41, 50, 65, 0.14);
+    --ui-border-card: 1px solid rgba(41, 50, 65, 0.16);
+    --ui-rule-soft: rgba(41, 50, 65, 0.08);
+    --ui-link-border: rgba(38, 97, 156, 0.35);
+    --ui-link-border-hover: rgba(242, 110, 29, 0.45);
+    --ui-img-elev: 0 1px 3px rgba(41, 50, 65, 0.06);
+
+    /* Fond dégradé — contact & pages détail */
+    --page-skin-bg:
+        radial-gradient(ellipse 130% 90% at 50% -25%, rgba(242, 110, 29, 0.11), transparent 55%),
+        radial-gradient(ellipse 70% 55% at 100% 35%, rgba(38, 97, 156, 0.07), transparent 50%),
+        radial-gradient(ellipse 55% 45% at 0% 75%, rgba(242, 110, 29, 0.05), transparent 48%);
+}

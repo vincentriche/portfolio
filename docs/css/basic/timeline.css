@@ -1,0 +1,566 @@
+/*
+    Listings timeline : posts (blogpost.html), projects (projects.html), experiences (experiences.html).
+    Une seule pile : base.css + timeline.css (+ timeline_responsive.css).
+    Created on : February 2016 — Author : RICHE Vincent
+*/
+
+@import url("commons.css");
+
+.timeline {
+    --timeline-axis-pct: 50%;
+    /* Même épaisseur pour la barre centrale et le contour des pastilles */
+    --timeline-line-width: 2px;
+    --date-axis-gap: clamp(1.1rem, 3.2vw, 2.85rem);
+    /* Écart carte / vignette au survol : plus discret + même durée / easing partout */
+    --timeline-split-shift: clamp(2px, 0.2vw, 4px);
+    --timeline-split-duration: 0.52s;
+    --timeline-split-ease: cubic-bezier(0.37, 0.01, 0.41, 1);
+    /* Pont gris historique (projects.css) — % + inset négatif, pas une barre fixe depuis le bord carte */
+    --timeline-bridge-pct: 3.5%;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1% 0;
+    overflow-x: hidden;
+    z-index: 1;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    width: var(--timeline-line-width);
+    top: 0;
+    bottom: 0;
+    left: var(--timeline-axis-pct);
+    transform: translateX(-50%);
+    margin: 1.5% 0;
+    padding: 0;
+    background: var(--main-text-color);
+    background: -moz-linear-gradient(top, var(--main-background-color) 0%, var(--main-text-color) 5%, var(--main-text-color) 50%, var(--main-text-color) 95%, var(--main-background-color) 100%);
+    background: -webkit-linear-gradient(top, var(--main-background-color) 0%, var(--main-text-color) 5%, var(--main-text-color) 50%, var(--main-text-color) 95%, var(--main-background-color) 100%);
+    background: linear-gradient(to bottom, var(--main-background-color) 0%, var(--main-text-color) 5%, var(--main-text-color) 50%, var(--main-text-color) 95%, var(--main-background-color) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--main-background-color)', endColorstr='var(--main-background-color)', GradientType=0);
+}
+
+.container {
+    display: block;
+    position: relative;
+    z-index: 1;
+    width: 50%;
+    margin: 2% 0;
+    padding: 1%;
+}
+
+/* Centre du point = jointure gauche/droite des colonnes (50 % de la timeline) */
+.container:after {
+    content: '';
+    position: absolute;
+    box-sizing: border-box;
+    width: clamp(9px, 0.85vw, 14px);
+    height: clamp(9px, 0.85vw, 14px);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--main-background-color);
+    border: var(--timeline-line-width) solid var(--main-text-color);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.container.left:after {
+    left: 100%;
+    right: auto;
+}
+
+.container.right:after {
+    left: 0;
+    right: auto;
+}
+
+.nodescription {
+    margin-bottom: 3%;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    left: 50%;
+}
+
+.education {
+    position: relative;
+    width: 60%;
+    margin: 2% 20%;
+    padding: 0;
+    border-bottom: 0.1vw dotted var(--main2-color);
+}
+
+.education p {
+    position: relative;
+    width: 50%;
+    margin: 0;
+    padding: 0 1% 0 0;
+    font-size: 1.0vw;
+    color: var(--main2-color);
+    font-family: "Stylized Text";
+    font-style: italic;
+    text-align: right;
+}
+
+.content {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+}
+
+.contentleft {
+    margin: 0 2% 0 0;
+}
+
+.contentright {
+    margin: 0 0 0 2%;
+}
+
+/* Date + round image: mobile display:contents (children join .content grid); desktop flex cluster toward axis. */
+.timeline-meta {
+    display: contents;
+}
+
+p.date {
+    margin: 0;
+}
+
+.date {
+    display: inline-block;
+    position: relative;
+    width: auto;
+    min-width: 0;
+    margin: 0;
+    font-size: 1vw;
+    color: var(--main2-color);
+    font-family: "Stylized Text";
+    font-weight: bold;
+    text-transform: uppercase;
+    z-index: 3;
+    visibility: visible;
+    white-space: nowrap;
+}
+
+/* Vignette : pas de trait sombre — contour par halo + ombre (cohérent avec les cartes) */
+.image {
+    display: inline-block;
+    position: absolute;
+    top: -30%;
+    width: 8.1vw;
+    height: 8vw;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    z-index: 2;
+    transition: box-shadow 0.18s ease;
+    overflow: hidden;
+    box-shadow:
+        0 0 0 1px rgba(41, 50, 65, 0.07),
+        0 2px 6px rgba(41, 50, 65, 0.06),
+        0 10px 24px rgba(41, 50, 65, 0.07);
+}
+
+.timeline-meta .image {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+}
+
+/* Aligné avec les feuilles responsive max-width: 1024px — évite la zone morte à 1024px */
+@media (min-width: 1024px) {
+    .timeline-meta {
+        display: inline-flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        align-content: center;
+        justify-content: flex-start;
+        gap: clamp(0.35rem, 0.85vw, 0.9rem);
+        column-gap: clamp(0.35rem, 0.85vw, 0.9rem);
+        row-gap: 0;
+        width: max-content;
+        max-width: none;
+        position: absolute;
+        z-index: 3;
+        top: 50%;
+        font-size: 0;
+    }
+
+    /* Centré verticalement dans .content (hauteur = carte) + même axe que le point du container */
+    .contentleft .timeline-meta {
+        right: 0;
+        left: auto;
+        flex-direction: row;
+        transform: translateX(calc(100% + var(--date-axis-gap))) translateY(-50%);
+    }
+
+    .contentright .timeline-meta {
+        left: 0;
+        right: auto;
+        flex-direction: row-reverse;
+        transform: translateX(calc(-100% - var(--date-axis-gap))) translateY(-50%);
+    }
+
+    .timeline-meta .date {
+        position: static;
+        transform: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: center;
+        box-sizing: border-box;
+        min-height: 8vw;
+        margin: 0;
+        padding: 0;
+        line-height: 1;
+        font-size: 1vw;
+        z-index: 3;
+    }
+
+    .contentleft .timeline-meta .date {
+        text-align: left;
+        justify-content: flex-start;
+        width: max-content;
+    }
+
+    .contentright .timeline-meta .date {
+        text-align: right;
+        justify-content: flex-end;
+        width: max-content;
+    }
+
+    .timeline-meta .image {
+        position: static;
+        top: auto;
+        flex: 0 0 auto;
+        align-self: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 8.1vw;
+        height: 8vw;
+        margin: 0;
+    }
+
+    /* Carte alignée sur le même axe vertical que .timeline-meta (inline-block + font-size:0 sur .content) */
+    .content.contentleft > .block,
+    .content.contentright > .block {
+        vertical-align: middle;
+    }
+}
+
+.image img {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Zoom photo sauf si la souris est sur la date (:has) */
+.timeline .content:hover:not(:has(.date:hover)) .image img {
+    transform: scale(1.15);
+}
+
+.block {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    width: 80%;
+    padding: 0%;
+}
+
+.blockleft {
+    margin: 0 0 0 -80%;
+}
+
+.blockright {
+    margin: 0 20% 0 110%;
+}
+
+/* Pont gris carte → axe — même design que l’ancien projects.css (% + léger débord) */
+.blockleft:after {
+    content: '';
+    position: absolute;
+    width: var(--timeline-bridge-pct);
+    top: 50%;
+    right: -4%;
+    transform: translateY(-50%);
+    border: 0.1vw solid rgba(41, 50, 65, 0.1);
+    background: rgba(41, 50, 65, 0.1);
+    transition:
+        transform var(--timeline-split-duration) var(--timeline-split-ease),
+        width var(--timeline-split-duration) var(--timeline-split-ease);
+}
+
+.blockright:after {
+    content: '';
+    position: absolute;
+    width: var(--timeline-bridge-pct);
+    top: 50%;
+    left: -4%;
+    transform: translateY(-50%);
+    border: 0.1vw solid rgba(41, 50, 65, 0.1);
+    background: rgba(41, 50, 65, 0.1);
+    transition:
+        transform var(--timeline-split-duration) var(--timeline-split-ease),
+        width var(--timeline-split-duration) var(--timeline-split-ease);
+}
+
+.block .title,
+.block > a:first-of-type {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0 0 2.4% 0;
+    font-size: 1.3vw;
+    color: var(--main2-color);
+    text-transform: uppercase;
+    font-family: "Stylized Text";
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border-radius: 0;
+    background-color: transparent;
+    border-bottom: 1px solid rgba(41, 50, 65, 0.12);
+    box-sizing: border-box;
+    transition: color 0.2s ease;
+}
+
+.block .title:hover,
+.block > a:first-of-type:hover {
+    color: var(--main1-color);
+    text-decoration: none;
+    transform: none;
+    box-shadow: none;
+}
+
+.block .nolink:hover {
+    text-decoration: none;
+    cursor: default;
+}
+
+.block p,
+.block .link {
+    display: block;
+    position: relative;
+    width: auto;
+    margin: 0;
+    padding: 1%;
+    font-size: 1vw;
+    color: var(--main2-color);
+    font-family: "Normal Text";
+    font-style: normal;
+    word-break: normal;
+    border-radius: var(--ui-radius-md);
+}
+
+.block .link {
+    display: inline-block;
+    text-decoration: underline;
+    padding-bottom: 1.5%;
+}
+
+.block .link:hover {
+    text-decoration: overline;
+}
+
+.blockleft a {
+    text-align: right;
+}
+
+.blockleft p {
+    text-align: justify;
+    -moz-text-align-last: right;
+    text-align-last: right;
+}
+
+.blockright a,
+.blockright .title,
+.blockright span.title {
+    text-align: left;
+}
+
+.blockright p {
+    text-align: left;
+    -moz-text-align-last: left;
+    text-align-last: left;
+}
+
+.timeline .content.card-clickable {
+    cursor: pointer;
+}
+
+.timeline .content.card-clickable .date {
+    cursor: default;
+}
+
+.timeline .content.card-clickable:focus-visible {
+    outline: 2px solid var(--main1-color);
+    outline-offset: 4px;
+}
+
+/*
+ * Rapport visuel léger avec le CV (cartes home-card / grid-item) — desktop timeline uniquement.
+ */
+@media (min-width: 1024px) {
+    .timeline .block {
+        padding: clamp(0.55rem, 1vw, 0.95rem);
+        box-sizing: border-box;
+        background: #fff;
+        border: 1px solid rgba(41, 50, 65, 0.14);
+        border-radius: var(--ui-radius-md);
+        box-shadow: var(--ui-card-shadow);
+        transition:
+            border-color 0.18s ease,
+            box-shadow 0.18s ease,
+            transform var(--timeline-split-duration) var(--timeline-split-ease);
+    }
+
+    /* Même effet que .hero-cta a:hover ; pas d’effet si survol uniquement la date */
+    .timeline .content.card-clickable:hover:not(:has(.date:hover)) .block,
+    .timeline .content.card-clickable:focus-visible .block {
+        border-color: var(--main1-color);
+        box-shadow:
+            0 2px 6px rgba(41, 50, 65, 0.08),
+            0 8px 22px rgba(41, 50, 65, 0.1);
+    }
+
+    .timeline .content.card-clickable:hover:not(:has(.date:hover)) .image,
+    .timeline .content.card-clickable:focus-visible .image {
+        box-shadow:
+            0 2px 6px rgba(41, 50, 65, 0.08),
+            0 8px 22px rgba(41, 50, 65, 0.1);
+    }
+
+    /*
+     * Au survol : la carte texte glisse vers l’extérieur ; la vignette reste fixe ; la date aussi.
+     */
+    .timeline .content.card-clickable.contentleft:hover:not(:has(.date:hover)) .block,
+    .timeline .content.card-clickable.contentleft:focus-visible .block {
+        transform: translateX(calc(-1 * var(--timeline-split-shift)));
+    }
+
+    .timeline .content.card-clickable.contentright:hover:not(:has(.date:hover)) .block,
+    .timeline .content.card-clickable.contentright:focus-visible .block {
+        transform: translateX(var(--timeline-split-shift));
+    }
+
+    /*
+     * Carte qui s’écarte : contre-translate du connecteur + largeur augmentée pour combler le trou vers l’axe.
+     */
+    .timeline .content.card-clickable.contentleft:hover:not(:has(.date:hover)) .blockleft:after,
+    .timeline .content.card-clickable.contentleft:focus-visible .blockleft:after {
+        transform: translateY(-50%) translateX(var(--timeline-split-shift));
+        width: calc(var(--timeline-bridge-pct) + var(--timeline-split-shift));
+    }
+
+    .timeline .content.card-clickable.contentright:hover:not(:has(.date:hover)) .blockright:after,
+    .timeline .content.card-clickable.contentright:focus-visible .blockright:after {
+        transform: translateY(-50%) translateX(calc(-1 * var(--timeline-split-shift)));
+        width: calc(var(--timeline-bridge-pct) + var(--timeline-split-shift));
+    }
+
+    /* Libellé comme au survol des boutons CV */
+    .timeline .content.card-clickable:hover:not(:has(.date:hover)) .block > a:first-of-type,
+    .timeline .content.card-clickable:hover:not(:has(.date:hover)) .block .title,
+    .timeline .content.card-clickable:focus-visible .block > a:first-of-type,
+    .timeline .content.card-clickable:focus-visible .block .title {
+        color: var(--main1-color);
+    }
+
+    .timeline .block > a:first-of-type,
+    .timeline .block .title {
+        color: var(--main-hypertext-color);
+        background-color: transparent;
+        border-bottom: 1px solid rgba(41, 50, 65, 0.12);
+        border-radius: 0;
+    }
+
+    .timeline .block > a:first-of-type:hover,
+    .timeline .block .title:hover {
+        color: var(--main1-color);
+        text-decoration: none;
+        box-shadow: none;
+    }
+
+    .timeline .block p {
+        color: var(--main-text-color);
+        line-height: 1.45;
+    }
+
+    .timeline .block .link {
+        color: var(--main-hypertext-color);
+        text-decoration: none;
+        padding-bottom: 0.15em;
+        border-bottom: 1px solid transparent;
+        transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .timeline .block .link:hover {
+        color: var(--main1-color);
+        text-decoration: none;
+        border-bottom-color: rgba(242, 110, 29, 0.35);
+    }
+
+    .education {
+        padding: 0 0 0.85rem 0;
+        margin-top: 2.5%;
+        margin-bottom: 2.5%;
+        border-bottom: 1px dotted rgba(41, 50, 65, 0.35);
+        border-radius: 0;
+    }
+
+    .education p {
+        letter-spacing: 0.02em;
+    }
+}
+
+#footer {
+    position: initial;
+}
+
+body[data-nav="projects"] .timeline,
+body[data-nav="posts"] .timeline,
+body[data-nav="experiences"] .timeline {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+body[data-nav="projects"] #footer,
+body[data-nav="posts"] #footer,
+body[data-nav="experiences"] #footer {
+    margin-top: 0;
+    padding-top: clamp(0.55rem, 1.4vw, 0.85rem);
+    padding-bottom: var(--shell-pad-bottom-detail);
+    padding-left: var(--shell-pad-left);
+    padding-right: var(--shell-pad-right);
+}
+
+/* --- Experiences : offsets image uniquement (le reste est commun ci-dessus) --- */
+body[data-nav="experiences"] .container {
+    margin: 3% 0;
+}
+
+body[data-nav="experiences"] .image {
+    top: -100%;
+}
+
+body[data-nav="experiences"] .content .timeline-meta .image,
+body[data-nav="experiences"] .timeline-meta .image {
+    top: auto;
+}
+
